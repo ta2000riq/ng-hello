@@ -40,7 +40,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "base-href": "/testurl/",
+              "baseHref": "/testurl/",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
