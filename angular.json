@@ -68,7 +68,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-hello:build"
+            "browserTarget": "ng-hello:build",
+            "baseHref": "/",
           },
           "configurations": {
             "production": {
