@@ -22,7 +22,8 @@ pipeline {
 }
 // Script //
 node {
-    git url: 'https://github.com/ta2000riq/ng-hello.git'
+    git branch: 'main',
+        url: 'https://github.com/ta2000riq/ng-hello.git'
     stage('Build') {
         echo 'Building....'
     }
