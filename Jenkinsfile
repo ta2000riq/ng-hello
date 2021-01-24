@@ -24,6 +24,9 @@ pipeline {
 node {
     git branch: 'main',
         url: 'https://github.com/ta2000riq/ng-hello.git'
+    stage('NPM Install') {
+          bat 'npm install'
+    }
     stage('Build') {
         echo 'Building....'
     }
