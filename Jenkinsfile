@@ -1,39 +1,36 @@
-pipeline{
-  agent any
-  stages{
-       stage('Clean Workspace'){
-      steps {
-        cleanWs()
-      }
-    }
-    
-    stage('Checkout'){
-      steps {
-        checkout([$class: 'GitSCM', 
-        branches: [[name: '*/main']], 
-        doGenerateSubmoduleConfigurations: false, 
-        extensions: [], 
-        submoduleCfg: [], 
-        userRemoteConfigs: [[url: 'https://github.com/ta2000riq/ng-hello.git']]])
+#!groovy
 
-      }
+properties(
+    [
+        [$class: 'BuildDiscarderProperty', strategy:
+          [$class: 'LogRotator', artifactDaysToKeepStr: '14', artifactNumToKeepStr: '5', daysToKeepStr: '30', numToKeepStr: '60']],
+    ]
+)
+node {
+    stage('Checkout') {
+        //disable to recycle workspace data to save time/bandwidth
+        deleteDir()
+        checkout scm
+
+        //enable for commit id in build number
+        //env.git_commit_id = sh returnStdout: true, script: 'git rev-parse HEAD'
+        //env.git_commit_id_short = env.git_commit_id.take(7)
+        //currentBuild.displayName = "#${currentBuild.number}-${env.git_commit_id_short}"
     }
-    stage ('install modules'){
-      steps{
-        sh '''
-          npm install
-        '''
-      }
+
+    stage('NPM Install') {
+        withEnv(["NPM_CONFIG_LOGLEVEL=warn"]) {
+            sh 'npm install'
+        }
     }
-    stage ('code quality'){
-      steps{
-        sh '$(npm bin)/ng lint'
-      }
+
+    stage('Lint') {
+        sh 'ng lint'
     }
-    stage ('build') {
-      steps{
-        sh '$(npm bin)/ng build --prod'
-      }
+
+    stage('Build') {
+        milestone()
+        sh 'ng build --prod'
     }
-  }
+
 }
