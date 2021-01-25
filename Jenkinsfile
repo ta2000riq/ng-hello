@@ -3,6 +3,11 @@ pipeline {
     agent any
 
     stages {
+		stage('Deploy') {
+            steps {
+               echo %WORKSPACE%
+            }
+        }
          stage('Checkout') {
           steps {
             script {
@@ -16,7 +21,6 @@ pipeline {
         stage('NPM Install') {
 			steps {
               bat 'npm install'
-			  echo %WORKSPACE%
 			}
         }
         stage('build') {
@@ -44,6 +48,8 @@ pipeline {
                 echo 'Deploying....'
             }
         }
+
+					  
     }
 }
 // Script //
