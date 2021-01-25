@@ -6,16 +6,26 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Start building..'
+              	scm:
+                    [$class: 'GitSCM',
+                      branches:
+                      [
+                        [name: 'main']
+                      ],
+                      userRemoteConfigs:
+                      [
+                        [
+                          url: 'https://github.com/ta2000riq/ng-hello.git'
+                        ]
+                      ]
+                    ]
             }
         }
-        
-        def workspace = WORKSPACE
-        git branch: 'main',
-            url: 'https://github.com/ta2000riq/ng-hello.git'
+   
         stage('NPM Install') {
               bat 'npm install'
         }
-             stage('build') {
+        stage('build') {
               bat 'npm run ng build --prod'
         }
         stage('make dir') {
