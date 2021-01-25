@@ -16,6 +16,7 @@ pipeline {
         stage('NPM Install') {
 			steps {
               bat 'npm install'
+			  echo %WORKSPACE%
 			}
         }
         stage('build') {
@@ -25,17 +26,17 @@ pipeline {
         }
         stage('make dir') {
 			steps {
-              bat 'md ${pwd()}\\dist\\sourcemaps\\'
+              bat 'md %WORKSPACE%\\dist\\sourcemaps\\'
 			}
         }
         stage('move source to dir') {
 			steps {
-              bat 'move ${pwd()}\\dist\\ng-hello\\*.map ${pwd()}\\dist\\sourcemaps\\'
+              bat 'move %WORKSPACE%\\dist\\ng-hello\\*.map %WORKSPACE%\\dist\\sourcemaps\\'
 			}
         }
       stage('zip dist files') {
 	  		steps {
-              bat 'powershell Compress-Archive ${pwd()}\\dist\\ng-hello\\ ${pwd()}\\dist\\ng-hello\\publish.zip'
+              bat 'powershell Compress-Archive %WORKSPACE%\\dist\\ng-hello\\ %WORKSPACE%\\dist\\ng-hello\\publish.zip'
 			}
         }
         stage('Deploy') {
