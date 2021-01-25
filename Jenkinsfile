@@ -14,19 +14,29 @@ pipeline {
            }
         }
         stage('NPM Install') {
+			steps {
               bat 'npm install'
+			}
         }
         stage('build') {
+			steps {
               bat 'npm run ng build --prod'
+			}
         }
         stage('make dir') {
+			steps {
               bat 'md ${pwd()}\\dist\\sourcemaps\\'
+			}
         }
         stage('move source to dir') {
+			steps {
               bat 'move ${pwd()}\\dist\\ng-hello\\*.map ${pwd()}\\dist\\sourcemaps\\'
+			}
         }
       stage('zip dist files') {
+	  		steps {
               bat 'powershell Compress-Archive ${pwd()}\\dist\\ng-hello\\ ${pwd()}\\dist\\ng-hello\\publish.zip'
+			}
         }
         stage('Deploy') {
             steps {
