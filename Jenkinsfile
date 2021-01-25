@@ -43,7 +43,7 @@ pipeline {
               bat 'powershell Compress-Archive ${env.WORKSPACE}\\dist\\ng-hello\\ ${env.WORKSPACE}\\dist\\ng-hello\\publish.zip'
 			}
         }
-        stage('Deploy') {
+        stage('Deploy End') {
             steps {
                 echo 'Deploying....'
             }
