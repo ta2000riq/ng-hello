@@ -20,16 +20,21 @@ pipeline {
               bat 'npm install'
 			}
         }
+		stage('delete dist dir if exists') {
+			steps {
+			if(!fileExists("${env.WORKSPACE}\\dist\\"))
+				{
+				  bat "rmdir ${env.WORKSPACE}\\dist\\"
+				  bat "mkdir ${env.WORKSPACE}\\dist\\"
+				}
+		    }
+        }
         stage('build') {
 			steps {
               bat 'npm run ng build --prod'
 			}
         }
-		stage('delete dist dir') {
-			steps {
-			  if exist "${env.WORKSPACE}\\dist\\" rmdir "${env.WORKSPACE}\\dist\\"
-			}
-        }
+
         stage('make dir') {
 			steps {
               bat "md ${env.WORKSPACE}\\dist\\sourcemaps\\"
