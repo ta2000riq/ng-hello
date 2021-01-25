@@ -38,12 +38,15 @@ pipeline {
       stage('zip dist files') {
 	  		steps {
               bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\ng-hello\\ ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello.zip"
+              bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\sourcemaps\\ ${env.WORKSPACE}\\dist\\ng-hello\\sourcemaps.zip"
+
 			}
         }
      stage("archive_build")
         {
             steps {
                 archiveArtifacts "dist\\ng-hello\\ng-hello.zip"
+				archiveArtifacts "dist\\ng-hello\\sourcemaps.zip"
             }
         }
         stage('Deploy End') {
