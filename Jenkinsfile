@@ -54,7 +54,7 @@ pipeline {
 }
 // Script //
 node {
-    stage('Deploy') {
+    stage('Deploy Node') {
         echo 'Node Deploying....'
     }
 }
