@@ -18,15 +18,7 @@ pipeline {
               bat 'npm install'
 			}
         }
-		stage('delete dist dir if exists') {
-			steps {
-			if(!fileExists("${env.WORKSPACE}\\dist"))
-				{
-				  bat "rmdir ${env.WORKSPACE}\\dist"
-				  bat "mkdir ${env.WORKSPACE}\\dist"
-				}
-		    }
-        }
+
         stage('build') {
 			steps {
               bat 'npm run ng build --prod'
@@ -55,6 +47,25 @@ pipeline {
         }
 
 					  
+    }
+	
+	post {
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo 'I succeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
+        }
     }
 
 }
