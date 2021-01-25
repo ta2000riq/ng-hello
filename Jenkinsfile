@@ -30,17 +30,17 @@ pipeline {
         }
         stage('make dir') {
 			steps {
-              bat 'md ${env.WORKSPACE}\\dist\\sourcemaps\\'
+              bat "md ${env.WORKSPACE}\\dist\\sourcemaps\\"
 			}
         }
         stage('move source to dir') {
 			steps {
-              bat 'move ${env.WORKSPACE}\\dist\\ng-hello\\*.map ${env.WORKSPACE}\\dist\\sourcemaps\\'
+              bat "move ${env.WORKSPACE}\\dist\\ng-hello\\*.map ${env.WORKSPACE}\\dist\\sourcemaps\\"
 			}
         }
       stage('zip dist files') {
 	  		steps {
-              bat 'powershell Compress-Archive ${env.WORKSPACE}\\dist\\ng-hello\\ ${env.WORKSPACE}\\dist\\ng-hello\\publish.zip'
+              bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\ng-hello\\ ${env.WORKSPACE}\\dist\\ng-hello\\publish.zip"
 			}
         }
         stage('Deploy End') {
