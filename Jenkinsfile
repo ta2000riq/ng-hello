@@ -20,10 +20,10 @@ pipeline {
         }
 		stage('delete dist dir if exists') {
 			steps {
-			if(!fileExists("${env.WORKSPACE}\\dist\\"))
+			if(!fileExists("${env.WORKSPACE}\\dist"))
 				{
-				  bat "rmdir ${env.WORKSPACE}\\dist\\"
-				  bat "mkdir ${env.WORKSPACE}\\dist\\"
+				  bat "rmdir ${env.WORKSPACE}\\dist"
+				  bat "mkdir ${env.WORKSPACE}\\dist"
 				}
 		    }
         }
