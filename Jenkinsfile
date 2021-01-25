@@ -43,7 +43,7 @@ pipeline {
      stage("archive_build")
         {
             steps {
-                archiveArtifacts "${env.WORKSPACE}\\dist\\ng-hello\\publish.zip"
+                archiveArtifacts "dist\\ng-hello\\publish.zip"
             }
         }
         stage('Deploy End') {
