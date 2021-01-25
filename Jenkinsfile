@@ -5,7 +5,7 @@ pipeline {
     stages {
 		stage('Deploy') {
             steps {
-               echo ${env.WORKSPACE}
+               echo "${env.WORKSPACE}"
             }
         }
          stage('Checkout') {
