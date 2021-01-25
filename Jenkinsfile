@@ -45,8 +45,10 @@ pipeline {
      stage("archive_build")
         {
             steps {
-                archiveArtifacts "dist\\ng-hello\\ng-hello.zip"
-				archiveArtifacts "dist\\ng-hello\\sourcemaps.zip"
+				dir("${env.WORKSPACE}\\dist\\ng-hello") {
+					archiveArtifacts "ng-hello.zip"
+					archiveArtifacts "sourcemaps.zip"
+				}
             }
         }
         stage('Deploy End') {
