@@ -5,10 +5,28 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'Start building..'
             }
         }
         
+        def workspace = WORKSPACE
+        git branch: 'main',
+            url: 'https://github.com/ta2000riq/ng-hello.git'
+        stage('NPM Install') {
+              bat 'npm install'
+        }
+             stage('build') {
+              bat 'npm run ng build --prod'
+        }
+        stage('make dir') {
+              bat 'md ${pwd()}\\dist\\sourcemaps\\'
+        }
+        stage('move source to dir') {
+              bat 'move ${pwd()}\\dist\\ng-hello\\*.map ${pwd()}\\dist\\sourcemaps\\'
+        }
+      stage('zip dist files') {
+              bat 'powershell Compress-Archive ${pwd()}\\dist\\ng-hello\\ ${pwd()}\\dist\\ng-hello\\publish.zip'
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
@@ -18,25 +36,7 @@ pipeline {
 }
 // Script //
 node {
-    def workspace = WORKSPACE
-    git branch: 'main',
-        url: 'https://github.com/ta2000riq/ng-hello.git'
-    stage('NPM Install') {
-          bat 'npm install'
-    }
-         stage('build') {
-          bat 'npm run ng build --prod'
-    }
-    stage('make dir') {
-          bat 'md ${WORKSPACE}\\dist\\sourcemaps\\'
-    }
-    stage('move source to dir') {
-          bat 'move ${WORKSPACE}\\dist\\ng-hello\\*.map ${WORKSPACE}\\dist\\sourcemaps\\'
-    }
-	stage('zip dist files') {
-          bat 'powershell Compress-Archive dist/ng-hello/ dist/ng-hello/publish.zip'
-    }
     stage('Deploy') {
-        echo 'Deploying....'
+        echo 'Node Deploying....'
     }
 }
