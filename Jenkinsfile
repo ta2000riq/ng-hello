@@ -1,7 +1,6 @@
 // Declarative //
 pipeline {
     agent {
-        any
 	      customWorkspace "${JENKINS_HOME}/workspace/${JOB_NAME}/${BUILD_NUMBER}"
 	}
 
@@ -24,6 +23,11 @@ pipeline {
         stage('build') {
 			steps {
               bat 'npm run ng build --prod'
+			}
+        }
+		stage('delete dist dir') {
+			steps {
+			  if exist "${env.WORKSPACE}\\dist\\" rmdir "${env.WORKSPACE}\\dist\\"
 			}
         }
         stage('make dir') {
