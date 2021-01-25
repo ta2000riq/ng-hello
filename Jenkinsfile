@@ -3,11 +3,6 @@ pipeline {
     agent any
 
     stages {
-		stage('Deploy') {
-            steps {
-               echo "${env.WORKSPACE}"
-            }
-        }
          stage('Checkout') {
           steps {
             script {
@@ -51,10 +46,9 @@ pipeline {
 
 					  
     }
-}
-// Script //
-node {
-    stage('Deploy Node') {
-        echo 'Node Deploying....'
+	post { 
+        always { 
+            cleanWs()
+        }
     }
 }
