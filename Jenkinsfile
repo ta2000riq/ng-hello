@@ -1,8 +1,6 @@
 // Declarative //
 pipeline {
-    agent {
-	      customWorkspace "${JENKINS_HOME}/workspace/${JOB_NAME}/${BUILD_NUMBER}"
-	}
+    agent any
 
     stages {
          stage('Checkout') {
