@@ -3,25 +3,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
-            steps {
-                echo 'Start building..'
-              	scm:
-                    [$class: 'GitSCM',
-                      branches:
-                      [
-                        [name: 'main']
-                      ],
-                      userRemoteConfigs:
-                      [
-                        [
-                          url: 'https://github.com/ta2000riq/ng-hello.git'
-                        ]
-                      ]
-                    ]
-            }
+         stage('Checkout') {
+          steps {
+            script {
+               // The below will clone your repo and will be checked out to master branch by default.
+               git branch: 'main', url: 'https://github.com/ta2000riq/ng-hello.git'
+               // Checkout to a specific branch in your repo.
+               // sh "git checkout main"
+              }
+           }
         }
-   
         stage('NPM Install') {
               bat 'npm install'
         }
