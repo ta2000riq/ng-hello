@@ -36,16 +36,12 @@ pipeline {
 			}
         }
       stage('zip dist files') {
-        steps{
-          	  		 script {
-              // bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\ng-hello\\ ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello.zip"
-              // bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\sourcemaps\\ ${env.WORKSPACE}\\dist\\ng-hello\\sourcemaps.zip"
-              zip zipFile: "${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip", dir: "${env.WORKSPACE}\\dist\\ng-hello\\", archive: true
-         }
+        steps{          	  		
+          dir("${env.WORKSPACE}\\dist\\ng-hello") {
+              zip zipFile: "ng-hello1.zip", dir: '.', archive: true
+            }
         }
-
-	
-        }
+ }
     
         stage('Deploy End') {
             steps {
@@ -59,7 +55,7 @@ pipeline {
 	post {
         always {
             echo 'One way or another, I have finished'
-            // deleteDir() /* clean up our workspace */
+            deleteDir() /* clean up our workspace */
         }
         success {
             echo 'I succeeded!'
