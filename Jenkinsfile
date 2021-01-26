@@ -36,11 +36,20 @@ pipeline {
 			}
         }
     
+          stage('zip dist files') {
+        steps{          	  		
+          
+			script {
+				    jar -cfM "${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip" "${env.WORKSPACE}\\dist\\ng-hello\\"
+            }
+        }
+   }
+      
     	   stage("archive_build") {
             steps {
-				dir("${env.WORKSPACE}\\dist\\ng-hello") {
-					archiveArtifacts "**"
-				}
+                dir("${env.WORKSPACE}\\dist\\ng-hello") {
+                  archiveArtifacts "ng-hello1.zip"
+                }
             }
         }
         stage('Deploy End') {
