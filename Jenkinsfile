@@ -35,10 +35,12 @@ pipeline {
               bat "move ${env.WORKSPACE}\\dist\\ng-hello\\*.map ${env.WORKSPACE}\\dist\\sourcemaps\\"
 			}
         }
-      stage('zip dist files') {
+       stage('zip dist files') {
         steps{          	  		
           dir("${env.WORKSPACE}\\dist\\ng-hello") {
-              zip zipFile: "ng-hello1.zip", dir: '.', archive: true
+			script {
+				zip zipFile: "ng-hello.zip", dir: '.', archive: true
+			  }
             }
         }
  }
