@@ -40,7 +40,7 @@ pipeline {
         steps{          	  		
           
 			
-				    bat "jar -cfM ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip -C ${env.WORKSPACE}\\dist\\ng-hello\\ ."
+				    bat "C:\\Program Files\\Java\\jdk1.8.0_181\\bin\\jar" " -cfM ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip -C ${env.WORKSPACE}\\dist\\ng-hello\\ ."
             
         }
    }
@@ -66,18 +66,7 @@ pipeline {
             echo 'One way or another, I have finished'
             deleteDir() /* clean up our workspace */
         }
-        success {
-            echo 'I succeeded!'
-        }
-        unstable {
-            echo 'I am unstable :/'
-        }
-        failure {
-            echo 'I failed :('
-        }
-        changed {
-            echo 'Things were different before...'
-        }
+        
     }
 
 }
