@@ -36,10 +36,11 @@ pipeline {
 			}
         }
       stage('zip dist files') {
-	  		
+	  		 script {
               // bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\ng-hello\\ ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello.zip"
               // bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\sourcemaps\\ ${env.WORKSPACE}\\dist\\ng-hello\\sourcemaps.zip"
               zip zipFile: "${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip", dir: "${env.WORKSPACE}\\dist\\ng-hello\\", archive: true
+         }
 	
         }
     
