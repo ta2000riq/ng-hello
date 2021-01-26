@@ -22,7 +22,7 @@ pipeline {
         stage('build') {
 			steps {
           dir("${env.WORKSPACE}\\node_modules\\@angular\\cli\\bin") {
-              bat 'ng build --prod --base-href=/tdc-ui/ --optimization=true'
+              bat 'node ng build --prod --base-href=/tdc-ui/ --optimization=true'
           }
 			}
         }
