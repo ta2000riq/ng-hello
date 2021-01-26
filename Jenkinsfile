@@ -37,20 +37,12 @@ pipeline {
         }
       stage('zip dist files') {
 	  		steps {
-              bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\ng-hello\\ ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello.zip"
-              bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\sourcemaps\\ ${env.WORKSPACE}\\dist\\ng-hello\\sourcemaps.zip"
-
+              // bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\ng-hello\\ ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello.zip"
+              // bat "powershell Compress-Archive ${env.WORKSPACE}\\dist\\sourcemaps\\ ${env.WORKSPACE}\\dist\\ng-hello\\sourcemaps.zip"
+              zip zipFile: "${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip", dir: "${env.WORKSPACE}\\dist\\ng-hello\\", archive: true
 			}
         }
-     stage("archive_build")
-        {
-            steps {
-				dir("${env.WORKSPACE}\\dist\\ng-hello") {
-					archiveArtifacts "ng-hello.zip"
-					archiveArtifacts "sourcemaps.zip"
-				}
-            }
-        }
+    
         stage('Deploy End') {
             steps {
                 echo 'Deploying....'
