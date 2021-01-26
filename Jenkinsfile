@@ -35,17 +35,14 @@ pipeline {
               bat "move ${env.WORKSPACE}\\dist\\ng-hello\\*.map ${env.WORKSPACE}\\dist\\sourcemaps\\"
 			}
         }
-       stage('zip dist files') {
-        steps{          	  		
-          
-			script {
-				      zip glob: 'dist/**', zipFile: "ng-hello.zip",  archive: true
-			        // zip glob: 'dist/**, zipFile: "ng-hello.zip", archive: true, dir: '\\dist\\ng-hello',
-
+    
+    	   stage("archive_build") {
+            steps {
+				dir("${env.WORKSPACE}\\dist\\ng-hello") {
+					archiveArtifacts "**"
+				}
             }
         }
- }
-    
         stage('Deploy End') {
             steps {
                 echo 'Deploying....'
