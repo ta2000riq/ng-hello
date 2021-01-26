@@ -39,9 +39,9 @@ pipeline {
           stage('zip dist files') {
         steps{          	  		
           
-			script {
-				    jar -cfM "${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip" "${env.WORKSPACE}\\dist\\ng-hello\\"
-            }
+			
+				    bat "jar -cfM ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip ${env.WORKSPACE}\\dist\\ng-hello\\"
+            
         }
    }
       
