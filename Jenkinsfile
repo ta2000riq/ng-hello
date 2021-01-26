@@ -39,8 +39,8 @@ pipeline {
         steps{          	  		
           
 			script {
-				// zip zipFile: "ng-hello.zip", dir: '\\dist\\ng-hello', archive: true
-			        zip glob: 'dist/**, zipFile: "ng-hello.zip", archive: true
+				      zip glob: 'dist/**', zipFile: "ng-hello.zip",  archive: true
+			        // zip glob: 'dist/**, zipFile: "ng-hello.zip", archive: true, dir: '\\dist\\ng-hello',
 
             }
         }
