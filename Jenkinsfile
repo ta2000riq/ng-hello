@@ -40,7 +40,7 @@ pipeline {
         steps{          	  		
           
 			
-				    bat "C:\\Program Files\\Java\\jdk1.8.0_181\\bin\\jar" " -cfM ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip -C ${env.WORKSPACE}\\dist\\ng-hello\\ ."
+				    bat "C:\\Program Files\\Java\\jdk1.8.0_181\\bin\\jar" + " -cfM ${env.WORKSPACE}\\dist\\ng-hello\\ng-hello1.zip -C ${env.WORKSPACE}\\dist\\ng-hello\\ ."
             
         }
    }
