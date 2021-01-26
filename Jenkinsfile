@@ -37,10 +37,10 @@ pipeline {
         }
        stage('zip dist files') {
         steps{          	  		
-          dir("${env.WORKSPACE}\\dist\\ng-hello") {
+          
 			script {
-				zip zipFile: "ng-hello.zip", dir: '.', archive: true
-			  }
+				zip zipFile: "ng-hello.zip", dir: '\\dist\\ng-hello', archive: true
+			 
             }
         }
  }
